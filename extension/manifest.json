@@ -1,0 +1,15 @@
+{
+    "manifest_version": 3,
+    "version": "1.0",
+    "name": "Spark",
+    "description": "A Chrome extension that uses AI to help you brainstorm ideas.",
+    "action": {
+        "default_popup": "index.html"
+    },
+    "host_permissions": [
+        ""
+    ],
+    "permissions": [
+        "storage"
+    ]
+}
