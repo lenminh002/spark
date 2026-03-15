@@ -1,6 +1,17 @@
-def main():
-    print("Hello from spark-brainstorm-chatbot!")
+from flask import Flask, request, jsonify, render_template
+from flask_cors import CORS
+from chatbot import get_response
 
+app = Flask(__name__)
+CORS(app)
 
-if __name__ == "__main__":
-    main()
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+@app.route("/chat", methods=["POST"])
+def chat():
+    data = request.json
+    user_input = data.get("message")
+    response = get_response(user_input)
+    return jsonify({"response": response})
