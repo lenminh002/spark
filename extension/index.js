@@ -1,9 +1,10 @@
 const userInput = document.getElementById('userInput');
+const sendButton = document.getElementById('sendButton');
 
 document.getElementById('sendButton').addEventListener('click', sendMessage);
 document.getElementById('clearBtn').addEventListener('click', clearMessages);
 
-
+let loadingElement = null;
 
 // load chat history from local storage
 chrome.storage.local.get('chatHistory', (data) => {
@@ -28,8 +29,20 @@ async function sendMessage() {
     document.getElementById('messages').appendChild(messageElement);
     userInput.value = '';
 
+
+    isLoading = true;
     // get response from server
     try{
+
+        //Loading indicator
+        loadingElement = document.createElement('div');
+        loadingElement.classList.add('message', 'assistant');
+        loadingElement.textContent = "Thinking...";
+        document.getElementById('messages').appendChild(loadingElement);
+        userInput.disabled = true;
+        sendButton.disabled = true;
+
+        //fetching data from server
         const response = await fetch("http://127.0.0.1:5000/chat", {
             method: 'POST',
             headers: {
@@ -55,6 +68,10 @@ async function sendMessage() {
         errorElement.classList.add('message', 'assistant');
         errorElement.textContent = "Sorry, there was an error processing your request. Please try again.";
         document.getElementById('messages').appendChild(errorElement);
+    }
+    finally{
+        loadingElement.remove();
+        userInput.disabled = false;
     }
     saveData();
 
