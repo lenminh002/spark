@@ -55,3 +55,6 @@ def get_response(user_input) -> str:
         generated_text = "Sorry, I couldn't generate a response. Please try again."
 
     return generated_text
+
+def clear_messages():
+    messages.clear()
