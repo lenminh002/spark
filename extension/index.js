@@ -3,6 +3,17 @@ const userInput = document.getElementById('userInput');
 document.getElementById('sendButton').addEventListener('click', sendMessage);
 document.getElementById('clearBtn').addEventListener('click', clearMessages);
 
+
+
+// load chat history from local storage
+chrome.storage.local.get('chatHistory', (data) => {
+    if (data.chatHistory) {
+        document.getElementById('messages').innerHTML = data.chatHistory;
+    }
+});
+
+
+
 async function sendMessage() {
     const message = userInput.value;
     if (!message){
@@ -27,11 +38,10 @@ async function sendMessage() {
             body: JSON.stringify({message: userText})
         });
 
+        const data = await response.json();
         if(!response.ok){
             throw new Error(data.error || 'An error occurred while fetching the response.');
         }
-
-        const data = await response.json();
 
         let assistantMessageElement = document.createElement('div');
         assistantMessageElement.classList.add('message', 'assistant');
@@ -46,15 +56,24 @@ async function sendMessage() {
         errorElement.textContent = "Sorry, there was an error processing your request. Please try again.";
         document.getElementById('messages').appendChild(errorElement);
     }
+    saveData();
 
 }
 
 async function clearMessages() {
+
+    await fetch("http://127.0.0.1:5000/clear", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
     document.getElementById('messages').innerHTML = '';
     let messageElement = document.createElement('div');
     messageElement.classList.add('message', 'assistant');
     messageElement.textContent = "Chat cleared. Start a new conversation!";
     document.getElementById('messages').appendChild(messageElement);
+    saveData();
 }
 
 
@@ -63,3 +82,11 @@ userInput.addEventListener("keydown", function(e){
         sendMessage();
     }
 });
+
+
+function saveData(){
+    const messages = document.getElementById('messages').innerHTML;
+    chrome.storage.local.set({chatHistory: messages});
+}
+
+
