@@ -7,7 +7,7 @@
         "default_popup": "index.html"
     },
     "host_permissions": [
-        "http://127.0.0.1:5000/*"
+        "http://spark-backend-iueorz-8a8891-72-62-125-194.traefik.me/*"
     ],
     "permissions": [
         "storage"
