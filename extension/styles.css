@@ -24,6 +24,7 @@ h1 {
     -webkit-text-stroke: 2px #000;
     margin: 10px;
 }
+
 h1:hover {
     transform: translateY(-3px);
     text-shadow: 3px 6px 0px #000;
@@ -41,22 +42,28 @@ h1:hover {
     height: 90%;
     justify-content: space-between;
 }
-.container:hover{
+
+.container:hover {
     transform: translateY(-3px);
     box-shadow: 6px 9px 0px #000;
+
     .message {
         box-shadow: 3px 6px 0px #555;
     }
+
     #inputContainer input {
         box-shadow: 3px 6px 0px #555;
     }
+
     #inputContainer button {
         box-shadow: 3px 6px 0px #555;
     }
+
     #inputContainer button:hover {
         transform: translateY(-2px);
         box-shadow: 3px 8px 0px #555;
     }
+
     #inputContainer button:active {
         transform: translateY(+2px);
         box-shadow: 3px 4px 0px #555;
@@ -65,15 +72,18 @@ h1:hover {
     #clearBtn {
         box-shadow: 3px 6px 0px #555;
     }
+
     #clearBtn:hover {
         transform: translateY(-1px);
         box-shadow: 3px 7px 0px #555;
     }
+
     #clearBtn:active {
         transform: translateY(+2px);
         box-shadow: 3px 4px 0px #555;
     }
-    #messages{
+
+    #messages {
         box-shadow: 3px 6px 0px #555;
     }
 }
@@ -88,10 +98,10 @@ h1:hover {
     cursor: pointer;
 }
 
-#messages{
+#messages {
     flex: 1;
     overflow-y: auto;
-    padding: 5px 10px; 
+    padding: 5px 10px;
     border: 2px solid #000;
     box-shadow: 3px 3px 0px #555;
     display: flex;
@@ -125,7 +135,7 @@ h1:hover {
 #inputContainer {
     display: flex;
     gap: 10px;
-    
+
 }
 
 #inputContainer input {
